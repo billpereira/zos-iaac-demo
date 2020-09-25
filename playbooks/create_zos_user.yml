@@ -1,0 +1,21 @@
+---
+  - hosts: zos
+    gather_facts: no
+    vars:
+      new_user: A101691
+      password: ABCD
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+      - name: Resetting {{new_user}}
+        zos_tso_command:
+          commands:
+            - LU {{new_user}}
+        register: comando
+
+      - debug:
+          msg: "{{comando}}"
+      

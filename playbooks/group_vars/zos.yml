@@ -1,0 +1,28 @@
+---
+  ansible_port: 22                                # SSH Port
+  # ansible_user: bill                              # USER used for deploy
+  # ansible_password: bill                        # USER used for deploy
+  # ansible_ssh_pipelining: True                    # needed for encoding on ssh connections
+  # System Related Variables
+  zoau_home: /var/zoau/zoau-1.0.1                 # Path for your ZOAU directory
+  python_path: /usr/lpp/rocket/python36/python36  # Path for your Python
+  ansible_python_interpreter: "{{python_path}}/bin/python"
+  tgt_tmp_dir: "/tmp"
+  ctl_tmp_dir: "/tmp"
+  default_environment:
+    ZOAU_ROOT: "{{zoau_home}}"
+    ZOAU_HOME: "{{zoau_home}}"
+    PATH: "{{zoau_home}}/bin:{{python_path}}/bin:/bin:."
+    LIBPATH: "{{zoau_home}}/lib:{{python_path}}/lib:/lib:/usr/lib:."
+    PYTHONPATH: "{{zoau_home}}/lib"
+    LANG: C
+    _BPXK_AUTOCVT: "ON"
+    _TAG_REDIR_ERR: txt
+    _TAG_REDIR_IN: txt
+    _TAG_REDIR_OUT: txt
+  # Variables for Zowe Installation
+  # ptfs: ['UO01939','UO01940']
+  # global_csi: ZOWE.SMPE.CSI
+  # target_zone: TZWE
+  # are_ptfs_applied: false
+  # receive_successful: false

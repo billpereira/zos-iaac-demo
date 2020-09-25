@@ -1,0 +1,12 @@
+---
+  - hosts: zos
+    gather_facts: no
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+
+    tasks:
+      - name: "Checking config {{abobrinha}}"
+        ping:
+      
