@@ -1,0 +1,30 @@
+---
+  - hosts: zos
+    gather_facts: no
+    vars:
+      cat_name: CATALOG.T51061.USER
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+          - name: diagnose_vsam
+            zos_mvs_raw:
+              program_name: idcams
+              # parm:
+              # auth:
+              dds:
+                - dd_data_set:
+                    dd_name: diagdd
+                    data_set_name: "{{cat_name}}"
+                    disposition: shr
+                - dd_input:
+                    dd_name: sysin
+                    content:
+                      - "DIAGNOSE ICFCATALOG INFILE(DIAGDD)"
+                      
+                  
+        
+
+      
