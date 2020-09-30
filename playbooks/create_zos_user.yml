@@ -2,20 +2,61 @@
   - hosts: zos
     gather_facts: no
     vars:
-      new_user: A101691
-      password: ABCD
+      new_user: BILLDEMO
+      new_u_name: 'Bill Demo User'
+      password: BILLPSW
     environment:
       "{{default_environment}}"
     collections:
       - ibm.ibm_zos_core
     
     tasks:
-      - name: Resetting {{new_user}}
+      - name: Delete {{new_user}}
+        zos_tso_command:
+          commands:
+            - DELETE '{{new_user}}'
+            - DELDSD '{{new_user}}.*.**'
+            - DELUSER {{new_user}}
+      
+      - name: 'TSO ADD USER for {{new_user}}'
+        zos_tso_command:
+          commands:
+            - AU {{new_user}} DFLTGRP(SUPZOS) NAME('{{new_u_name}}')
+              OMVS(AUTOUID HOME('/u/{{new_user}}')
+              PROGRAM('/usr/lpp/rocket/bin/bash'))
+              OWNER(SUPZOS) PASSWORD({{password}})
+              TSO(ACCTNUM(ACCT#) PROC(GENERAL) SIZE(2096128)
+              MAXSIZE(2096128) UNIT(3390) COMMAND(ISPF))
+              SPECIAL OPERATIONS AUDITOR
+            - "CO {{new_user}} GROUP(IMWEB)"
+            - "CO {{new_user}} GROUP(IZUADMIN)"
+            - "CO {{new_user}} GROUP(IZUSECAD)"
+            - "CO {{new_user}} GROUP(IZUUNGRP)"
+            - "CO {{new_user}} GROUP(IZUUSER)"
+            - "CO {{new_user}} GROUP(IZUZNA)"
+            - "CO {{new_user}} GROUP(OMVS)"
+            - "CO {{new_user}} GROUP(SUPERUSR)"
+            - "CO {{new_user}} GROUP(SUPPORT)"
+            - "CO {{new_user}} GROUP(SYSCTLG)"
+            - "CO {{new_user}} GROUP(SYS1)"
+            - "CO {{new_user}} GROUP(ZOSMF)"
+            - "CO {{new_user}} GROUP(ZCX)"
+            - ADDSD '{{new_user}}.*.**' UACC(NONE) OWNER({{new_user}}) AUDIT(FAILURES(READ))
+            - DEFINE ALIAS (NAME('{{new_user}}') RELATE('CATALOG.T51061.USER'))
+      
+      - name: New user created
         zos_tso_command:
           commands:
             - LU {{new_user}}
-        register: comando
+        register: response
 
       - debug:
-          msg: "{{comando}}"
+          msg: "{{response.output}}"
+        
+      - name: Creating home directory
+        shell: |
+          echo "rm -rf /u/{{new_user}}" | su;
+          echo "mkdir /u/{{new_user}}" | su;
+          echo "chown {{new_user}}:supzos /u/{{new_user}}" | su;
+          echo "chmod 600 /u/{{new_user}}" | su;
       

@@ -4,8 +4,8 @@
   # ansible_password: bill                        # USER used for deploy
   # ansible_ssh_pipelining: True                    # needed for encoding on ssh connections
   # System Related Variables
-  zoau_home: /var/zoau/zoau-1.0.1                 # Path for your ZOAU directory
-  python_path: /usr/lpp/rocket/python36/python36  # Path for your Python
+  zoau_home: /var/zoau/zoau-1.0.3                 # Path for your ZOAU directory
+  python_path: /var/python/usr/lpp/IBM/cyp/v3r8/pyz  # Path for your Python
   ansible_python_interpreter: "{{python_path}}/bin/python"
   tgt_tmp_dir: "/tmp"
   ctl_tmp_dir: "/tmp"
