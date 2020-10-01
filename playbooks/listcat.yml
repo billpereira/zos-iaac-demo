@@ -1,0 +1,22 @@
+---
+      - hosts: zos
+        gather_facts: no
+        vars:
+            cat_name: CATALOG.T51061.USER
+        environment:
+            ZOAU_ROOT: '{{zoau_home}}'    
+            ZOAU_HOME: '{{zoau_home}}' 
+            PATH: '{{zoau_home}}/bin:{{python_path}}/bin:/bin:.'
+            LIBPATH: '{{zoau_home}}/lib:{{python_path}}/lib:/lib:/usr/lib:.'
+            PYTHONPATH: '{{zoau_home}}/lib'
+            _BPXK_AUTOCVT: 'ON'
+        collections:
+            - ibm.ibm_zos_core
+        
+        tasks:
+            - name: listcat
+              zos_tso_command:
+                commands:
+                 - "LISTC ENT('{{cat_name}}') ALL"
+                 
+          
