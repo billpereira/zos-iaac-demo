@@ -1,0 +1,29 @@
+---
+    - hosts: zos
+      gather_facts: no
+      vars:
+        cat_name: CATALOG.T51061.USER
+      environment:
+        "{{default_environment}}"
+      collections:
+        - ibm.ibm_zos_core
+      
+      tasks:
+            - name: examine_vsam
+              zos_mvs_raw:
+                program_name: idcams
+                # parm:
+                auth: true
+                dds:                 
+                    - dd_input:
+                        dd_name: sysin
+                        content:
+                         - " EXAMINE NAME({{cat_name}}) "
+                    - dd_output:
+                        dd_name: sysprint
+                        return_content:
+                         type: text
+                    
+          
+  
+        
