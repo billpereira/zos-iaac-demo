@@ -2,7 +2,7 @@
   - hosts: zos
     gather_facts: no
     vars:
-      cat_name: CATALOG.T51061.USER
+      cat_name: CATALOG.T51061.TEST
     environment:
       "{{default_environment}}"
     collections:
