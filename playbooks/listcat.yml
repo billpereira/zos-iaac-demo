@@ -7,7 +7,6 @@
             "{{default_environment}}"
         collections:
             - ibm.ibm_zos_core
-        
         tasks:
             - name: listcat_ent
               zos_tso_command:
