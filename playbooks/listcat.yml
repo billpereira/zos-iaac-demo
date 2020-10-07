@@ -2,21 +2,31 @@
       - hosts: zos
         gather_facts: no
         vars:
-            cat_name: CATALOG.T51061.USER
+            cat_name: CATALOG.T51061.TEST
         environment:
-            ZOAU_ROOT: '{{zoau_home}}'    
-            ZOAU_HOME: '{{zoau_home}}' 
-            PATH: '{{zoau_home}}/bin:{{python_path}}/bin:/bin:.'
-            LIBPATH: '{{zoau_home}}/lib:{{python_path}}/lib:/lib:/usr/lib:.'
-            PYTHONPATH: '{{zoau_home}}/lib'
-            _BPXK_AUTOCVT: 'ON'
+            "{{default_environment}}"
         collections:
             - ibm.ibm_zos_core
         
         tasks:
-            - name: listcat
+            - name: listcat_ent
               zos_tso_command:
                 commands:
                  - "LISTC ENT('{{cat_name}}') ALL"
+
+            - name: listcat_cat
+              zos_mvs_raw:
+                program_name: idcams
+                # parm:
+                auth: true
+                dds:
+                    - dd_output:
+                        dd_name: SYSPRINT
+                        return_content:
+                          type: text
+                    - dd_input:
+                        dd_name: SYSIN
+                        content:
+                        -  " LISTC CAT('{{cat_name}}') ALL"
                  
           
