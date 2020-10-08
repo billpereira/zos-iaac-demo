@@ -1,0 +1,33 @@
+---
+  - hosts: zos
+    gather_facts: no
+    vars: 
+        cat_name: CATALOG.T51061.TEST2
+        prim_alloc: 3
+        sec_alloc: 2
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+        - name: define_cat
+          zos_mvs_raw:
+            program_name: idcams
+            auth: true
+            dds:
+                - dd_output:
+                    dd_name: SYSPRINT
+                    return_content:
+                        type: text
+                - dd_input:
+                    dd_name: SYSIN
+                    content:
+                        - " DEFINE USERCATALOG -"
+                        - " (NAME({{cat_name}}) -"
+                        - " CYLINDERS({{prim_alloc}} {{sec_alloc}}) -"
+                        - " VOLUME(T51061) -"
+                        - " LOCK -"
+                        - " ICFCATALOG ) "
+                  
+                
