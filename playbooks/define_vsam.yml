@@ -27,6 +27,7 @@
                         - " (NAME({{cat_name}}) -"
                         - " CYLINDERS({{prim_alloc}} {{sec_alloc}}) -"
                         - " VOLUME(T51061) -"
+                        - " SHAREOPTIONS(3,4) -"
                         - " LOCK -"
                         - " ICFCATALOG ) "
                   
