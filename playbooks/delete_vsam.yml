@@ -1,0 +1,30 @@
+---
+  - hosts: zos
+    gather_facts: no
+    vars:
+        cat_name: CATALOG.T51061.TEST2
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+      - name: delete_vsam
+        zos_mvs_raw:
+          program_name: idcams
+          # parm:
+          auth: true        
+          dds:
+            - dd_output:
+                dd_name: SYSPRINT
+                return_content:
+                  type: text
+            - dd_input:
+                dd_name: SYSIN
+                content:
+                - " DELETE {{cat_name}} -"
+                - " RECOVERY -"
+                - " USERCATALOG "
+
+                
+            
