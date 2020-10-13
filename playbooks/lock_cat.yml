@@ -20,8 +20,8 @@
                 return_content:
                   type: text
             - dd_input:
-                dd_name: DD Name
+                dd_name: SYSIN
                 content:
-                - "ALTER {{cat_name}} LOCK"
+                - " ALTER {{cat_name}} LOCK"
                 
             
