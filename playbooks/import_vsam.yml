@@ -1,0 +1,33 @@
+---
+      - hosts: zos
+        gather_facts: no
+        environment:
+          "{{default_environment}}"
+        vars:
+            cat_name: CATALOG.T51061.TEST
+            export_file: CATALOG.T51061.TEST.EXPORTED
+        collections:
+          - ibm.ibm_zos_core
+        
+        tasks:
+            - name: import
+              zos_mvs_raw:
+                program_name: idcams
+                auth: true
+                dds:
+                    - dd_output:
+                        dd_name: SYSPRINT
+                        return_content:
+                          type: text
+                      
+                    - dd_input:
+                        dd_name: SYSIN
+                        content:
+                          - " IMPORT INDATASET({{export_file}}) -"
+                          - " OUTDATASET({{cat_name}}) -"
+                          - " ALIAS -"
+                          - " LOCK"
+                      
+                  
+
+          
