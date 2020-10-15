@@ -1,0 +1,7 @@
+---
+- import_playbook: examine_vsam.yml
+- import_playbook: diagnose_vsam.yml
+- import_playbook: listcat.yml
+- import_playbook: export_vsam.yml
+- import_playbook: import_vsam.yml
+-
