@@ -12,6 +12,7 @@
       - name: unlock_cat
         zos_mvs_raw:
           program_name: idcams
+          # parm:
           auth: true
           dds:
             - dd_output:
@@ -21,4 +22,6 @@
             - dd_input:
                 dd_name: SYSIN
                 content:
-                - " ALTER {{cat_name}} UNLOCK"
+                - " ALTER {{cat_name}} LOCK"
+                
+            

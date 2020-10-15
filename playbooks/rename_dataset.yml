@@ -1,0 +1,19 @@
+---
+  - hosts: zos
+    gather_facts: no
+    vars:
+        dataset_name_source: MARLM.TEST
+        dataset_name_target: MARLM.TEST1
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+      - name: rename_dataset
+        zos_tso_command:
+         commands:
+           - ALTER '{{dataset_name_source}}' NEWNAME('{{dataset_name_target}}')
+      
+                
+            
