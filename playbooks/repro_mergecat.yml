@@ -1,0 +1,37 @@
+---
+    # THIS WAS NOT TESTES YET
+    # THIS WAS NOT TESTES YET
+    # THIS WAS NOT TESTES YET
+
+  - hosts: zos
+    gather_facts: no
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+    vars:
+        cat_name_source: CATALOG.T51061.TEST1
+        cat_name_target: CATALOG.T51061.TEST2
+        move_entries: TEST.*
+    
+    tasks:
+        - name: repro_mergecat
+          zos_mvs_raw:
+            program_name: idcams
+            auth: true
+            dds:
+                - dd_output:
+                    dd_name: SYSPRINT
+                    return_content:
+                      type: text
+                - - dd_input:
+                    dd_name: SYSIN
+                    content:
+                      - " REPRO INDATASET({{cat_name_source}}) -" 
+                      - " OUTDATASET({{cat_name_target}}) - "
+                      - " ENTRIES({{move_entries}}) - "               
+                      - " MERGECAT "                       
+                  
+                  
+              
+      
