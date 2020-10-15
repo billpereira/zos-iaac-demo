@@ -1,0 +1,31 @@
+---
+    # THIS WAS NOT TESTES YET
+    # THIS WAS NOT TESTES YET
+    # THIS WAS NOT TESTES YET
+    
+  - hosts: zos
+    gather_facts: no
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+    vars:
+        cat_name: CATALOG.T51061.TEST2
+        alias: TEST2
+    
+    tasks:
+        - name: define_alias
+          zos_mvs_raw:
+            program_name: idcams
+            auth: true
+            dds:
+                - dd_output:
+                    dd_name: SYSPRINT
+                    return_content:
+                      type: text
+                - dd_input:
+                    dd_name: SYSIN
+                    content:
+                      - " DELETE ALIAS -"                            
+                      - " {{alias}} -"                 
+                      - " CATALOG({{cat_name}}) "
