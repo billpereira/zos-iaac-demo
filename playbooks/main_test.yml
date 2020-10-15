@@ -1,0 +1,13 @@
+---
+  - hosts: zos
+    gather_facts: no
+    environment:
+      "{{default_environment}}"
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+      - name: backup  
+        include_tasks: backup_dsn_task.yml
+        
+      

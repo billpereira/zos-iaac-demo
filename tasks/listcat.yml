@@ -1,0 +1,22 @@
+---
+  - name: listcat_ent
+    zos_tso_command:
+      commands:
+        - "LISTC ENT('{{cat_name}}') ALL"
+
+  - name: listcat_cat
+    zos_mvs_raw:
+      program_name: idcams
+      # parm:
+      auth: true
+      dds:
+          - dd_output:
+              dd_name: SYSPRINT
+              return_content:
+                type: text
+          - dd_input:
+              dd_name: SYSIN
+              content:
+              -  " LISTC CAT('{{cat_name}}') ALL"
+                 
+          

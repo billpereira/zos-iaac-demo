@@ -1,0 +1,20 @@
+---
+  - name: delete_vsam
+    zos_mvs_raw:
+      program_name: idcams
+      # parm:
+      auth: true        
+      dds:
+        - dd_output:
+            dd_name: SYSPRINT
+            return_content:
+              type: text
+        - dd_input:
+            dd_name: SYSIN
+            content:
+            - " DELETE {{cat_name}} -"
+            - " RECOVERY -"
+            - " USERCATALOG "
+
+                
+            
