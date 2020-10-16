@@ -1,0 +1,8 @@
+---
+  - name: rename_dataset
+    zos_tso_command:
+      commands:
+        - ALTER '{{dataset_name_source}}' NEWNAME('{{dataset_name_target}}')
+      
+                
+            

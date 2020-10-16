@@ -1,0 +1,27 @@
+---
+  - name: 
+    zos_mvs_raw:
+      program_name: iebgener
+      # parm:
+      # auth:
+      dds:
+        - dd_data_set:
+            dd_name: SYSUT1
+            data_set_name: SUPZOS.SAMPLE
+        - dd_data_set:
+            dd_name: SYSUT2
+            data_set_name: MARLM.SAMPLE
+            disposition: new
+            type: seq
+        - dd_dummy:
+            dd_name: SYSIN
+        - dd_dummy:
+            dd_name: SYSPRINT
+              
+
+
+              
+    
+            
+              
+      

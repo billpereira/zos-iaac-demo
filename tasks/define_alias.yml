@@ -1,0 +1,17 @@
+---
+  - name: define_alias
+    zos_mvs_raw:
+      program_name: idcams
+      auth: true
+      dds:
+          - dd_output:
+              dd_name: SYSPRINT
+              return_content:
+                type: text
+          - dd_input:
+              dd_name: SYSIN
+              content:
+                - " DEFINE ALIAS -"                            
+                - " (NAME({{alias}}) -"                 
+                - " RELATE({{cat_name}})) -"
+                - " CATALOG({{master_cat_name}}) "

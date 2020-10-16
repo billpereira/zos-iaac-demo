@@ -1,0 +1,10 @@
+---
+- import_playbook: lock_cat.yml
+- import_playbook: define_vsam.yml
+- import_playbook: listcat.yml
+- import_playbook: examine_vsam.yml
+- import_playbook: diagnose_vsam.yml
+- import_playbook: repro_mergecat.yml
+- import_playbook: delete_alias.yml
+- import_playbook: define_alias.yml
+- import_playbook: unlok_cat.yml

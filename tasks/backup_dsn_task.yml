@@ -1,0 +1,17 @@
+---
+    - hosts: zos
+      gather_facts: no
+      
+      environment:
+        "{{default_environment}}"
+      collections:
+        - ibm.ibm_zos_core
+      
+      tasks:
+        - name: Make a simple backup
+          zos_copy:
+            src: "{{dsn}}"
+            dest: "{{dsn}}.BKP"
+            remote_src: true
+            
+        
