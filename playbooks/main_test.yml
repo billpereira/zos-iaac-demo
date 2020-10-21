@@ -5,9 +5,11 @@
       "{{default_environment}}"
     collections:
       - ibm.ibm_zos_core
+    vars:
+      cat_name: CATALOG.T51061.TEST1
     
     tasks:
       - name: backup  
-        include_tasks: backup_dsn_task.yml
+        include_tasks: ../tasks/listcat.yml
         
       

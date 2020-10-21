@@ -1,0 +1,12 @@
+---
+  - name: Make a simple backup
+    zos_copy:
+      src: "{{dsn}}"
+      dest: "{{dsn}}.BKP"
+      remote_src: true
+    register: backup_result
+    
+  - debug:
+      msg: "{{backup_result.dest}}"
+  
+        

@@ -1,8 +1,8 @@
 ---
-  - name: listcat_ent
-    zos_tso_command:
-      commands:
-        - "LISTC ENT('{{cat_name}}') ALL"
+  # - name: listcat_ent
+  #   zos_tso_command:
+  #     commands:
+  #       - "LISTC ENT('{{cat_name}}') ALL"
 
   - name: listcat_cat
     zos_mvs_raw:
@@ -18,5 +18,10 @@
               dd_name: SYSIN
               content:
               -  " LISTC CAT('{{cat_name}}') ALL"
+    register: listcat_result
+                
+  - debug:
+      msg: DATASET COPIED SUCCESSFULLY
+    when: listcat_result.ret_code.code == "0"
                  
           
