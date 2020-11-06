@@ -1,7 +1,6 @@
 ---
     - hosts: zos
       gather_facts: no
-      
       environment:
         "{{default_environment}}"
       collections:
