@@ -1,12 +1,8 @@
 ---
-  ansible_port: 22                                # SSH Port
-  # ansible_user: bill                              # USER used for deploy
-  # ansible_password: bill                        # USER used for deploy
-  # ansible_ssh_pipelining: True                    # needed for encoding on ssh connections
   # System Related Variables
   zoau_home: /var/zoau/zoau-1.0.3                 # Path for your ZOAU directory
   python_path: /var/python/usr/lpp/IBM/cyp/v3r8/pyz  # Path for your Python
-  ansible_python_interpreter: "{{python_path}}/bin/python"
+  ansible_python_interpreter: "{{python_path}}/bin/python3.8"
   tgt_tmp_dir: "/tmp"
   ctl_tmp_dir: "/tmp"
   default_environment:
@@ -20,9 +16,3 @@
     _TAG_REDIR_ERR: txt
     _TAG_REDIR_IN: txt
     _TAG_REDIR_OUT: txt
-  # Variables for Zowe Installation
-  # ptfs: ['UO01939','UO01940']
-  # global_csi: ZOWE.SMPE.CSI
-  # target_zone: TZWE
-  # are_ptfs_applied: false
-  # receive_successful: false
